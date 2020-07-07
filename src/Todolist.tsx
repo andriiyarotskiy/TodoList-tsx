@@ -2,6 +2,8 @@ import React, {ChangeEvent} from 'react';
 import {filterValueType, TaskType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditTableSpan} from "./EditTableSpan";
+import {Button, Checkbox, IconButton} from "@material-ui/core";
+import {Delete} from "@material-ui/icons";
 
 
 type PropsType = {
@@ -14,8 +16,8 @@ type PropsType = {
     changeStatus: (id: string, isDone: boolean, todoListID: string) => void
     filter: filterValueType
     removeTodoList: (id: string) => void
-    changeTodoListTitle: (id: string, NewTitle:string) => void
     changeTaskTitle: (id: string, title: string, todolistID: string) => void
+    changeTodoListTitle: (id: string, NewTitle: string) => void
 }
 
 export function Todolist(props: PropsType) {
@@ -31,14 +33,20 @@ export function Todolist(props: PropsType) {
             props.changeTaskTitle(t.id, newTitle, props.id)
         }
         return (
-            <li key={t.id} className={props.filter !== 'completed' && t.isDone ? 'is-done' : ''}>
-                <input type="checkbox" checked={t.isDone} onChange={onStatusChangeHandler}/>
+            <div key={t.id} className={props.filter !== 'completed' && t.isDone ? 'is-done' : ''}>
+                <Checkbox
+                    checked={t.isDone}
+                    onChange={onStatusChangeHandler}
+                    color={"primary"}
+                />
                 <EditTableSpan title={t.title} saveTitle={onTitleChangeCallback}/>
-                <button onClick={() => {
-                    props.removeTask(t.id, props.id)
-                }}>X
-                </button>
-            </li>
+                <IconButton onClick={() => {
+                    props.removeTask(t.id, props.id)}}
+                            color={"secondary"}
+                >
+                    <Delete/>
+                </IconButton>
+            </div>
         )
     })
 
@@ -56,32 +64,37 @@ export function Todolist(props: PropsType) {
     }
 
 
-
     return ( // РЕТУРН JSX
         <div>
             <h3>
-                <EditTableSpan title={props.title} saveTitle={changeTodoListTitle} />
-                <button onClick={deleteTodoList}>X</button>
+                <EditTableSpan title={props.title} saveTitle={changeTodoListTitle}/>
+                <IconButton onClick={deleteTodoList}>
+                    <Delete/>
+                </IconButton>
             </h3>
-
             <AddItemForm addItem={createTaskTitle}/>
-
-            <ul>
-                {jsxTasks}
-            </ul>
             <div>
-                <button
-                    className={props.filter === 'all' ? 'active-filter' : ''}
-                    onClick={onAllChangeFilter}>All
-                </button>
-                <button
-                    className={props.filter === 'active' ? 'active-filter' : ''}
-                    onClick={onActiveChangeFilter}>Active
-                </button>
-                <button
-                    className={props.filter === 'completed' ? 'active-filter' : ''}
-                    onClick={onCompletedChangeFilter}>Completed
-                </button>
+                {jsxTasks}
+            </div>
+            <div>
+                <Button
+                    variant={"contained"}
+                    onClick={onAllChangeFilter}
+                    color={props.filter === 'all' ? 'primary' : 'secondary'}
+                >All
+                </Button>
+                <Button
+                    variant={"contained"}
+                    onClick={onActiveChangeFilter}
+                    color={props.filter === 'active' ? 'primary' : 'secondary'}
+                >Active
+                </Button>
+                <Button
+                    variant={"contained"}
+                    onClick={onCompletedChangeFilter}
+                    color={props.filter === 'completed' ? 'primary' : 'secondary'}
+                >Completed
+                </Button>
             </div>
         </div>
     )
