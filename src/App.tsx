@@ -135,7 +135,7 @@ const App = () => {
                 </Toolbar>
             </AppBar>
             <Container fixed>
-                <Grid container style={{ padding: "20px"}}>
+                <Grid container style={{padding: "20px"}}>
                     <AddItemForm addItem={addTodoList}/>
                 </Grid>
                 <Grid container spacing={3}>
@@ -154,21 +154,20 @@ const App = () => {
 
                         return (
                             <Grid item key={tl.id}>
-                                <Paper style={{ padding: "10px"}}>
-                                    <h1>Ветка ТЕСТ МЕРЖА</h1>
-                                <Todolist
-                                    id={tl.id}
-                                    title={tl.title}
-                                    tasks={tasksForToDoList}
-                                    removeTask={removeTask}
-                                    changeFilter={changeFilter}
-                                    addTask={addTask}
-                                    changeStatus={changeStatus}
-                                    filter={tl.filter}
-                                    removeTodoList={removeTodoList}
-                                    changeTaskTitle={changeTaskTitle}
-                                    changeTodoListTitle={changeTodoListTitle}
-                                />
+                                <Paper style={{padding: "10px"}}>
+                                    <Todolist
+                                        id={tl.id}
+                                        title={tl.title}
+                                        tasks={tasksForToDoList}
+                                        removeTask={removeTask}
+                                        changeFilter={changeFilter}
+                                        addTask={addTask}
+                                        changeStatus={changeStatus}
+                                        filter={tl.filter}
+                                        removeTodoList={removeTodoList}
+                                        changeTaskTitle={changeTaskTitle}
+                                        changeTodoListTitle={changeTodoListTitle}
+                                    />
                                 </Paper>
                             </Grid>
                         )
