@@ -7,7 +7,7 @@ import {AppBar, Button, Container, Grid, IconButton, Paper, Toolbar, Typography}
 import {Menu} from '@material-ui/icons';
 
 
-export type filterValueType = "all" | "active" | "completed"
+export type FilterValuesType = "all" | "active" | "completed"
 
 export type TaskType = {
     id: string
@@ -18,17 +18,17 @@ type TasksStateType = {
     [key: string]: Array<TaskType>
 }
 
-export type TodoListType = {
+export type TodolistType = {
     id: string,
     title: string,
-    filter: filterValueType
+    filter: FilterValuesType
 }
 
 const App = () => {
     let todoListID1 = v1();
     let todoListID2 = v1();
 
-    let [todoLists, setTodoLists] = useState<Array<TodoListType>>([
+    let [todoLists, setTodoLists] = useState<Array<TodolistType>>([
         {id: todoListID1, title: "Books", filter: "all"},
         {id: todoListID2, title: "Songs", filter: "active"}
     ])
@@ -51,16 +51,13 @@ const App = () => {
         }
     )
 
-    // let [filter, setFilter] = useState<filterValueType>('all')
-
     function removeTask(id: string, todoListID: string) {
         let todoListTasks = tasks[todoListID]
         tasks[todoListID] = todoListTasks.filter(t => t.id !== id)
         setTasks({...tasks})
     }
 
-
-    const addTask = (title: string, todoListID: string) => {
+    function addTask (title: string, todoListID: string) {
         let newTask = {id: v1(), title: title, isDone: false}
         let todoListTasks = tasks[todoListID]
         tasks[todoListID] = [newTask, ...todoListTasks]
@@ -85,7 +82,7 @@ const App = () => {
         }
     }
 
-    function changeFilter(id: string, value: filterValueType) {
+    function changeFilter(id: string, value: FilterValuesType) {
         let todoList = todoLists.find(tl => tl.id === id)
         if (todoList) {
             todoList.filter = value;
@@ -109,7 +106,7 @@ const App = () => {
 
     function addTodoList(title: string) {
         let newTodoListID = v1()
-        let newTodoList: TodoListType = {
+        let newTodoList: TodolistType = {
             id: newTodoListID,
             title: title,
             filter: "all"
