@@ -1,4 +1,4 @@
-import {FilterValuesType, TodolistType} from "../App";
+import {FilterValuesType, TodolistType} from "../AppWithRedux";
 import {v1} from "uuid";
 
 type ActionsType = RemoveTodolistActionType | AddTodolistActionType | ChangeTodolistTitleActionType |
@@ -27,10 +27,7 @@ export let todoListID1 = v1();
 export let todoListID2 = v1();
 
 
-const initialState: Array<TodolistType> = [
-    {id: todoListID1, title: "Books", filter: "all"},
-    {id: todoListID2, title: "Songs", filter: "active"}
-]
+const initialState: Array<TodolistType> = []
 
 
 // меня вызовут и дадут мне стейт (почти всегда объект)
