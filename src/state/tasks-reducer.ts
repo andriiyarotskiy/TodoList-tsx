@@ -1,6 +1,6 @@
 import {TasksStateType} from "../App";
 import {v1} from "uuid";
-import {AddTodolistActionType, RemoveTodolistActionType} from "./todolists-reducer";
+import {AddTodolistActionType, RemoveTodolistActionType, todoListID1, todoListID2} from "./todolists-reducer";
 
 export type RemoveTaskActionType = {
     type: 'REMOVE-TASK'
@@ -32,8 +32,24 @@ type ActionsType = AddTaskActionType |
     AddTodolistActionType |
     RemoveTodolistActionType
 
+const initialState = {
+    [todoListID1]:
+        [
+            {id: v1(), title: "HTML&CSS", isDone: true},
+            {id: v1(), title: "JS", isDone: true},
+            {id: v1(), title: "ReactJS", isDone: false},
+            {id: v1(), title: "Redux", isDone: false},
+        ],
+    [todoListID2]:
+        [
+            {id: v1(), title: "Redux", isDone: false},
+            {id: v1(), title: "RestApi", isDone: false},
+            {id: v1(), title: "GraphQL", isDone: false}
+        ]
+}
+
 // меня вызовут и дадут мне стейт (почти всегда объект)
-export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksStateType => {
+export const tasksReducer = (state: TasksStateType = initialState, action: ActionsType): TasksStateType => {
     switch (action.type) {
         case 'REMOVE-TASK': {
             const copyState = {...state}
@@ -78,7 +94,7 @@ export const tasksReducer = (state: TasksStateType, action: ActionsType): TasksS
         }
 
         default:
-            throw new Error("I don't understand this type")
+            return state
     }
 }
 
