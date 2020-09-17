@@ -48,7 +48,7 @@ export const tasksApi = {
         return instance.delete(`todo-lists/${todolistId}/tasks/${taskId}`)
     },
     updateTask(todolistId: string, taskId: string, title: string) {
-        return instance.put(`todo-lists/${todolistId}/tasks/${taskId}`,{title})
+        return instance.put(`/todo-lists/${todolistId}/tasks/${taskId}`, {title})
     }
 }
 // У GET и DELETE запросов нету тела запроса (body, payload), а у POST и PUT есть
